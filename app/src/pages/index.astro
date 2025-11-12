@@ -84,7 +84,7 @@ import Skills from '../components/Skills.astro';
 					<h3>Certificates</h3>
 					<p>
 						Whenever I do something, I give one hundred and ten.
-						<br>I've earned many certifications, and maintain the most relevant ones active.
+						<br>I've earned <a href="https://www.credly.com/users/rafal-krol-xyz/badges#credly">many certifications</a>, and maintain the most relevant ones active.
 					</p>
 				</header>
 
@@ -94,58 +94,16 @@ import Skills from '../components/Skills.astro';
 							[
 								{
 									// AWS Certified Solutions Architect – Professional
-									href: 'https://www.credly.com/badges/035a66a4-b571-458c-8064-7383690d8397',
+									href: 'https://www.credly.com/badges/25b66413-030f-4d15-814c-44a1641d36ac',
 									src: 'https://images.credly.com/size/680x680/images/2d84e428-9078-49b6-a804-13c15383d0de/image.png',
 									alt: 'A badge in the form of a turquoise hexagon standing on one of its vertices with the words - AWS Certified, Solutions Architect, Professional - on it.',
 								},
 								{
 									// AWS Certified DevOps Engineer – Professional
-									href: 'https://www.credly.com/badges/c06836e7-6a91-4bf7-9d3d-43be1c485a24',
+									href: 'https://www.credly.com/badges/25b66413-030f-4d15-814c-44a1641d36ac',
 									src: 'https://images.credly.com/size/680x680/images/bd31ef42-d460-493e-8503-39592aaf0458/image.png',
 									alt: 'A badge in the form of a turquoise hexagon standing on one of its vertices with the words - AWS Certified, DevOps Engineer, Professional - on it.',
 								},
-								{
-									// AWS Certified Advanced Networking – Specialty
-									href: 'https://www.credly.com/badges/8394e5e3-5be6-4cb3-aef1-49234d566804',
-									src: 'https://images.credly.com/size/680x680/images/4d08274f-64c1-495e-986b-3143f51b1371/image.png',
-									alt: 'A badge in the form of a purple hexagon standing on one of its vertices with the words - AWS Certified, Advanced Networking, Specialty - on it.',
-								},
-								{
-									// AWS Certified Data Analytics – Specialty
-									href: 'https://www.credly.com/badges/2a913331-828a-484a-a8d0-577ddd4c1556',
-									src: 'https://images.credly.com/size/680x680/images/6430efe4-0ac0-4df6-8f1b-9559d8fcdf27/image.png',
-									alt: 'A badge in the form of a purple hexagon standing on one of its vertices with the words - AWS Certified, Data Analytics, Specialty - on it.',
-								},
-								{
-									// AWS Certified Security – Specialty
-									href: 'https://www.credly.com/badges/f6111b43-063f-4c44-8c2f-7fe70589f69a',
-									src: 'https://images.credly.com/size/680x680/images/53acdae5-d69f-4dda-b650-d02ed7a50dd7/image.png',
-									alt: 'A badge in the form of a purple hexagon standing on one of its vertices with the words - AWS Certified, Security, Specialty - on it.',
-								},
-								{
-									// AWS Certified Solutions Architect – Associate
-									href: 'https://www.credly.com/badges/1aac6199-1a19-4831-b339-51deec5748cb',
-									src: 'https://images.credly.com/size/680x680/images/0e284c3f-5164-4b21-8660-0d84737941bc/image.png',
-									alt: 'A badge in the form of a blue hexagon standing on one of its vertices with the words - Solutions Architect, Associate - on it.',
-								},
-								{
-									// AWS Certified Developer – Associate
-									href: 'https://www.credly.com/badges/d95f1b92-c8cd-4273-9cc8-e8cbb6b52ef8',
-									src: 'https://images.credly.com/size/680x680/images/b9feab85-1a43-4f6c-99a5-631b88d5461b/image.png',
-									alt: 'A badge in the form of a blue hexagon standing on one of its vertices with the words - Developer, Associate - on it.',
-								},
-								{
-									// AWS Certified SysOps Administrator – Associate
-									href: 'https://www.credly.com/badges/09c9ad65-03c9-4cec-8728-d0328409e63d',
-									src: 'https://images.credly.com/size/680x680/images/f0d3fbb9-bfa7-4017-9989-7bde8eaf42b1/image.png',
-									alt: 'A badge in the form of a blue hexagon standing on one of its vertices with the words - SysOps Administrator - on it.',
-								},
-								{
-									// HashiCorp Certified: Terraform Associate (002)
-									href: 'https://www.credly.com/badges/5d52b8c9-44f7-4492-a7cc-cab8833d58bd',
-									src: 'https://images.credly.com/size/680x680/images/99289602-861e-4929-8277-773e63a2fa6f/image.png',
-									alt: 'A black badge with the words - Terraform, Certified Associate, HCTAO-002 - on it.',
-								}
 							].map((badge) => (
 								<li class="mention-card">
 									<a href={badge.href} target="_blank"><img src={badge.src} alt={badge.alt}></a>
