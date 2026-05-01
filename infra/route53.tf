@@ -44,7 +44,7 @@ resource "aws_route53_record" "txt" {
   ttl     = 3600
   records = [
     "apple-domain=ZkaoYqsPCHjbSyWk",
-    "v=spf1 include:icloud.com ~all"
+    "v=spf1 include:icloud.com -all"
   ]
 }
 
