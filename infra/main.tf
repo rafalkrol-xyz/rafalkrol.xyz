@@ -24,7 +24,7 @@ resource "aws_amplify_app" "main" {
 
   custom_rule {
     source = "https://rafalkrol.xyz"
-    status = "302"
+    status = "301"
     target = "https://www.rafalkrol.xyz"
   }
 
