@@ -84,7 +84,7 @@ import Skills from '../components/Skills.astro';
 					<h3>Certificates</h3>
 					<p>
 						Whenever I do something, I give one hundred and ten.
-						<br>I've earned <a href="https://www.credly.com/users/rafal-krol-xyz/badges#credly">many certifications</a>, and maintain the most relevant ones active.
+						<br>I've earned <a href="https://www.credly.com/users/rafal-krol-xyz/badges#credly" target="_blank" rel="noopener noreferrer">many certifications</a>, and maintain the most relevant ones active.
 					</p>
 				</header>
 
@@ -106,7 +106,7 @@ import Skills from '../components/Skills.astro';
 								},
 							].map((badge) => (
 								<li class="mention-card">
-									<a href={badge.href} target="_blank"><img src={badge.src} alt={badge.alt}></a>
+									<a href={badge.href} target="_blank" rel="noopener noreferrer"><img src={badge.src} alt={badge.alt}></a>
 								</li>
 							))
 						}
