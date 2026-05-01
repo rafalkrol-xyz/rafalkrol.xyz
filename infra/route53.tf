@@ -69,3 +69,26 @@ resource "aws_route53_record" "acm_validation_2" {
     "_a30794c7363fc3bac9747c0e23bb36e4.tljzshvwok.acm-validations.aws."
   ]
 }
+
+# CNAME - DKIM for iCloud Mail
+resource "aws_route53_record" "dkim" {
+  zone_id = aws_route53_zone.rafalkrol_xyz.zone_id
+  name    = "sig1._domainkey.${local.rafalkrol_xyz_phz}"
+  type    = "CNAME"
+  ttl     = 3600
+  records = [
+    "sig1.dkim.rafalkrol.xyz.at.icloudmailadmin.com."
+  ]
+}
+
+# CNAME - WWW subdomain to CloudFront distribution
+resource "aws_route53_record" "www" {
+  zone_id = aws_route53_zone.rafalkrol_xyz.zone_id
+  name    = "www.${local.rafalkrol_xyz_phz}"
+  type    = "CNAME"
+  ttl     = 500
+  records = [
+    "dmxdeoyuzd0lj.cloudfront.net"
+  ]
+}
+### DNS RECORDS - END
