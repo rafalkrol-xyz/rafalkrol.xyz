@@ -1,0 +1,52 @@
+resource "aws_amplify_app" "main" {
+  name       = local.name
+  repository = "https://github.com/rafalkrol-xyz/pulumi-rafalkrol-xyz-draft" # TODO: change to https://github.com/rafalkrol-xyz/rafalkrol.xyz
+
+  build_spec = <<-EOT
+    version: 1
+    frontend:
+      phases:
+        preBuild:
+          commands:
+            - cd app
+            - npm ci
+        build:
+          commands:
+            - npm run build
+      artifacts:
+        baseDirectory: /app/dist
+        files:
+          - '**/*'
+      cache:
+        paths:
+          - app/node_modules/**/*
+  EOT
+
+  custom_rule {
+    source = "https://rafalkrol.xyz"
+    status = "301"
+    target = "https://www.rafalkrol.xyz"
+  }
+
+  custom_headers = <<-EOT
+    customHeaders:
+      - pattern: '**/*'
+        headers:
+          - key: 'Strict-Transport-Security'
+            value: 'max-age=63072000; includeSubDomains; preload'
+          - key: 'X-Content-Type-Options'
+            value: 'nosniff'
+          - key: 'X-Frame-Options'
+            value: 'DENY'
+          - key: 'Referrer-Policy'
+            value: 'strict-origin-when-cross-origin'
+          - key: 'Permissions-Policy'
+            value: 'camera=(), microphone=(), geolocation=()'
+          - key: 'Content-Security-Policy'
+            value: "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' https://images.credly.com data:; connect-src 'self'; frame-ancestors 'none';"
+  EOT
+
+  environment_variables = {
+    "_CUSTOM_IMAGE" = "amplify:al2"
+  }
+}

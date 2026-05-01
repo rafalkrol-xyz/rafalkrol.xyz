@@ -1,0 +1,181 @@
+---
+import Icon from "./Icon.astro";
+---
+
+<section class="box skills">
+	<div class="stack gap-2 lg:gap-4">
+		<Icon icon="cloud" color="var(--accent-regular)" size="2.5rem" gradient />
+		<h2>Cloud</h2>
+		<p>
+			I have many years of professional experience designing, building,
+			deploying, maintaining and operating modern cloud architectures on AWS and
+			hybrid environments. I participated in migrations to AWS from on-prem,
+			created entire landing zones, and implemented multi-account networking -
+			all using Infrastructure as Code (IaC) tools (Terraform, AWS CDK and
+			Pulumi).
+			<a
+				href="https://aws.amazon.com/blogs/apn/building-a-multi-region-solution-for-auto-recovery-of-amazon-ec2-instances-using-aws-cdk-and-aws-step-functions/"
+				target="_blank"
+			>
+				I wrote an article on one of my solutions that got featured on the AWS
+				Partner Network (APN) blog.
+			</a>
+		</p>
+	</div>
+	<div class="stack gap-2 lg:gap-4">
+		<Icon
+			icon="infinity"
+			color="var(--accent-regular)"
+			size="2.5rem"
+			gradient
+		/>
+		<h2>DevOps</h2>
+		<p>
+			Standing up and destroying an uncountable number of resources using
+			Infrastructure as Code (IaC), shifting testing left with powerful
+			automation that the dev teams don't even need to think about (Continous
+			Integration), increasing innovation velocity and agility through seamless,
+			error-prone deployments (Continous Delivery/Deployment). All of that while
+			fostering closer inter- and intra-team collaboration by removing process
+			friction.
+			<a href="/assets/devo.jpg" target="_blank">
+				Yes, I'm into DevOps so much that my JRT is named Devo.
+			</a>
+		</p>
+	</div>
+	<div class="stack gap-2 lg:gap-4">
+		<Icon
+			icon="translate"
+			color="var(--accent-regular)"
+			size="2.5rem"
+			gradient
+		/>
+		<h2>Multi-lang</h2>
+		<p>
+			I've developed APIs, SDKs, backend services, and internal tooling
+			throughout my career using TypeScript, Go and Python. I am currently
+			learning Haskell to grasp the functional programming paradigm better, and
+			I am a Rustacean in the making. Having cooperated with Firmware and Mobile
+			teams, I've dabbled in C, Objective-C, Swift, Java and Kotlin ecosystems.
+			I can do basic frontend stuff, as demonstrated by this website, but I love
+			the blackness of the terminal and prefer CLIs to GUIs. I ran apps directly
+			on hosts, inside Docker containers, ECS tasks, Kubernetes pods and
+			serverless in AWS Lambdas orchestrated by Step Functions; I'm looking
+			forward to compiling software to WebAssembly (WASM) binaries.
+		</p>
+	</div>
+	<div class="stack gap-2 lg:gap-4">
+		<Icon
+			icon="books"
+			color="var(--accent-regular)"
+			size="2.5rem"
+			gradient
+		/>
+		<h2>Bookworm</h2>
+		<p>
+			I read books every day, listen to lo-fi music when I code, play video
+			games when I can, pump iron three times a week and walk my JRT three times
+			a day.
+		</p>
+	</div>
+	<div class="stack gap-2 lg:gap-4">
+		<Icon
+			icon="chalkboard-teacher"
+			color="var(--accent-regular)"
+			size="2.5rem"
+			gradient
+		/>
+		<h2>Subject Matter Expert</h2>
+		<p>
+			I have worked directly with C-level management, customer reps and other
+			business stakeholders. I held presentations, planned budgets, prepared
+			technical briefs, gave reports, participated in performance reviews of my
+			colleagues, and ran technical interviews with potential prospects.
+		</p>
+	</div>
+	<div class="stack gap-2 lg:gap-4">
+		<Icon icon="plant" color="var(--accent-regular)" size="2.5rem" gradient />
+		<h2>Mentor</h2>
+		<p>
+			I firmly believe that education is king and the key to a better, more
+			sustainable, and inclusive future. On my small part, I have
+			<a
+				href="https://www.linkedin.com/posts/rafa%C5%82-g%C4%85dek-822026178_aws-certified-solutions-architect-associate-activity-7030483008843317248-aOi0"
+				target="_blank"
+			>
+				played the role of a mentor both within and outside the workplace,
+			</a>
+			and
+			<a href="https://www.youtube.com/watch?v=EgLCtVshp8E" target="_blank">
+				I cohosted over 40 videos aimed at helping people to restart their
+				careers in IT.
+			</a>
+			I have been a
+			<a
+				href="https://aws.amazon.com/developer/community/community-builders/community-builders-directory/?cb-cards.sort-by=item.additionalFields.cbName&cb-cards.sort-order=asc&awsf.builder-category=*all&awsf.location=*all&awsf.year=*all&cb-cards.q=Rafal%2BKrol&cb-cards.q_operator=AND"
+				target="_blank"
+			>
+				member of AWS Community Builders since 2021,
+			</a>
+			published blog
+			<a href="https://dev.to/rafalkrolxyz/series/13782" target="_blank">
+				posts to Dev.to,
+			</a>
+			presented to a
+			<a
+				href="https://www.youtube.com/watch?v=7mZRCm1dbFY&t=4614s"
+				target="_blank"
+			>
+				local AWS User Group meetup,
+			</a>
+			and
+			<a
+				href="https://www.youtube.com/channel/UCcG8LBxGmAndy3Ohl92KBww"
+				target="_blank"
+			>
+				I'm kicking off a YouTube channel.
+			</a>
+		</p>
+	</div>
+</section>
+
+<style>
+	.box {
+		border: 1px solid var(--gray-800);
+		border-radius: 0.75rem;
+		padding: 1.5rem;
+		background-color: var(--gray-999_40);
+		box-shadow: var(--shadow-sm);
+	}
+
+	.skills {
+		display: flex;
+		flex-direction: column;
+		gap: 3rem;
+	}
+
+	.skills h2 {
+		font-size: var(--text-lg);
+	}
+
+	.skills p {
+		color: var(--gray-400);
+	}
+
+	@media (min-width: 50em) {
+		.box {
+			border-radius: 1.5rem;
+			padding: 2.5rem;
+		}
+
+		.skills {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			gap: 5rem;
+		}
+
+		.skills h2 {
+			font-size: var(--text-2xl);
+		}
+	}
+</style>
