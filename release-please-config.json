@@ -1,0 +1,12 @@
+{
+  "packages": {
+    "app": {
+      "release-type": "node",
+      "package-name": "app"
+    },
+    "infra": {
+      "release-type": "simple",
+      "package-name": "infra"
+    }
+  }
+}
