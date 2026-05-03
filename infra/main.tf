@@ -28,6 +28,12 @@ resource "aws_amplify_app" "main" {
     target = "https://www.rafalkrol.xyz"
   }
 
+  # FIXME: due to a known bug in the provider (https://github.com/hashicorp/terraform-provider-aws/issues/34318),
+  # custom_headers will show a diff on every plan/apply.
+  # Once the issue is fixed, remove the `// keep` comment and the `lifecycle` block.
+  lifecycle {
+    ignore_changes = [custom_headers]
+  }
   custom_headers = <<-EOT
     customHeaders:
       - pattern: '**/*'
