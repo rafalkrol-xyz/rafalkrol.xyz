@@ -1,25 +1,33 @@
+# NB, to avoid generating a GitLab Personal Access Token (PAT),
+# this Amplify app was created through the AWS Console, and then imported:
+# import {
+#   to =  aws_amplify_app.main
+#   id = "d3bb6k6j340kgg" # prod
+# }
+
 resource "aws_amplify_app" "main" {
   name       = local.name
   repository = "https://github.com/rafalkrol-xyz/rafalkrol.xyz"
 
   build_spec = <<-EOT
-    version: 1
-    frontend:
+version: 1
+applications:
+  - frontend:
       phases:
         preBuild:
           commands:
-            - cd app
-            - npm ci
+            - npm ci --cache .npm --prefer-offline
         build:
           commands:
             - npm run build
       artifacts:
-        baseDirectory: /app/dist
+        baseDirectory: dist
         files:
           - '**/*'
       cache:
         paths:
-          - app/node_modules/**/*
+          - .npm/**/*
+    appRoot: app
   EOT
 
   custom_rule {
@@ -53,6 +61,7 @@ resource "aws_amplify_app" "main" {
   EOT
 
   environment_variables = {
-    "_CUSTOM_IMAGE" = "amplify:al2"
+    "AMPLIFY_DIFF_DEPLOY"       = "false"
+    "AMPLIFY_MONOREPO_APP_ROOT" = "app"
   }
 }
