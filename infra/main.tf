@@ -64,6 +64,7 @@ applications:
     "AMPLIFY_MONOREPO_APP_ROOT" = "app"
   }
 }
+
 ### PRODUCTION BRANCH & DOMAIN ASSOCIATION - START
 # The main branch association was created implicitly
 # when the Amplify app was created via the AWS Console.
@@ -85,3 +86,27 @@ resource "aws_amplify_branch" "main" {
     prevent_destroy = true
   }
 }
+
+resource "aws_amplify_domain_association" "rafalkrol_xyz" {
+  count = var.env == "prod" ? 1 : 0
+
+  app_id      = aws_amplify_app.main.id
+  domain_name = local.rafalkrol_xyz_phz
+
+  # https://rafalkrol.xyz
+  sub_domain {
+    branch_name = aws_amplify_branch.main[count.index].branch_name
+    prefix      = ""
+  }
+
+  # https://www.rafalkrol.xyz
+  sub_domain {
+    branch_name = aws_amplify_branch.main[count.index].branch_name
+    prefix      = "www"
+  }
+
+  lifecycle {
+    prevent_destroy = true
+  }
+}
+### PRODUCTION BRANCH & DOMAIN ASSOCIATION - END
