@@ -1,5 +1,21 @@
 # Changelog
 
+## [1.0.0](https://github.com/rafalkrol-xyz/rafalkrol.xyz/compare/v0.1.0...v1.0.0) (2026-05-03)
+
+
+### ⚠ BREAKING CHANGES
+
+* Migrate to a different repo
+
+### Features
+
+* Migrate to a different repo ([2aaa9c7](https://github.com/rafalkrol-xyz/rafalkrol.xyz/commit/2aaa9c7fab83f2245f621c51837214e3caf512e7))
+
+
+### Bug Fixes
+
+* update package-lock ([6652e4e](https://github.com/rafalkrol-xyz/rafalkrol.xyz/commit/6652e4e62be3da09f72bb1ac8321debcf9f68dfc))
+
 ## 0.1.0 (2026-05-01)
 
 
