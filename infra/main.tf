@@ -1,6 +1,6 @@
 resource "aws_amplify_app" "main" {
   name       = local.name
-  repository = "https://github.com/rafalkrol-xyz/pulumi-rafalkrol-xyz-draft" # TODO: change to https://github.com/rafalkrol-xyz/rafalkrol.xyz
+  repository = "https://github.com/rafalkrol-xyz/rafalkrol.xyz"
 
   build_spec = <<-EOT
     version: 1
