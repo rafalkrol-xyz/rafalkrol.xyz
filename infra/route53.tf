@@ -11,17 +11,45 @@ resource "aws_route53_zone" "rafalkrol_xyz" {
 ### PUBLIC HOSTED ZONE - END
 
 ### DNS RECORDS - START
-# A Record - Apex domain to CloudFront distribution
+# A Record (Alias) - Apex domain to CloudFront distribution (managed by Amplify domain association)
 resource "aws_route53_record" "apex" {
+  count = var.env == "prod" ? 1 : 0
+
   zone_id = aws_route53_zone.rafalkrol_xyz.zone_id
   name    = local.rafalkrol_xyz_phz
   type    = "A"
 
   alias {
-    name                   = "dmxdeoyuzd0lj.cloudfront.net" # TODO: import the amplify resource
-    zone_id                = "Z2FDTNDATAQYW2"               # CloudFront hosted zone ID originating from an Amplify app # TODO: import the amplify resource
+    # sub_domain.dns_record is in the format " CNAME <target>" — split and trim to get the CloudFront hostname
+    name = trimspace(
+      # 3. Splits the " CNAME DISTRO_ID.cloudfront.net" string into a list with two elements and takes the second one (index [1])
+      split(
+        "CNAME",
+        # 1. Iterates over all sub_domain blocks in the domain association and returns only the dns_record of the one where prefix == "" (the apex, not www).
+        # Result is a list with one element, e.g.:
+        # [" CNAME DISTRO_ID.cloudfront.net"]
+        [for s in aws_amplify_domain_association.rafalkrol_xyz[count.index].sub_domain : s.dns_record if s.prefix == ""]
+        # 2. Grabs the first (and only) element from that list:
+        [0]
+      )[1]
+    )
+    # The CloudFront hosted zone ID is fixed for all CloudFront distributions:
+    # https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-properties-route53-recordset-aliastarget.html
+    zone_id                = "Z2FDTNDATAQYW2"
     evaluate_target_health = false
   }
+}
+
+# CNAME - WWW subdomain to CloudFront distribution (managed by Amplify domain association)
+resource "aws_route53_record" "www" {
+  count = var.env == "prod" ? 1 : 0
+
+  zone_id = aws_route53_zone.rafalkrol_xyz.zone_id
+  name    = "www.${local.rafalkrol_xyz_phz}"
+  type    = "CNAME"
+  ttl     = 500
+  # sub_domain.dns_record is in the format " CNAME <target>" — split and trim to get the CloudFront hostname
+  records = [trimspace(split("CNAME", [for s in aws_amplify_domain_association.rafalkrol_xyz[count.index].sub_domain : s.dns_record if s.prefix == "www"][0])[1])]
 }
 
 # MX Records - iCloud Mail servers
@@ -78,17 +106,6 @@ resource "aws_route53_record" "dkim" {
   ttl     = 3600
   records = [
     "sig1.dkim.rafalkrol.xyz.at.icloudmailadmin.com."
-  ]
-}
-
-# CNAME - WWW subdomain to CloudFront distribution
-resource "aws_route53_record" "www" {
-  zone_id = aws_route53_zone.rafalkrol_xyz.zone_id
-  name    = "www.${local.rafalkrol_xyz_phz}"
-  type    = "CNAME"
-  ttl     = 500
-  records = [
-    "dmxdeoyuzd0lj.cloudfront.net"
   ]
 }
 ### DNS RECORDS - END

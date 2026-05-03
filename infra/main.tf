@@ -1,25 +1,32 @@
+# NB, to avoid generating a GitLab Personal Access Token (PAT),
+# this Amplify app was created through the AWS Console, and then imported:
+# import {
+#   to =  aws_amplify_app.main
+#   id = "d3bb6k6j340kgg" # prod
+# }
 resource "aws_amplify_app" "main" {
   name       = local.name
-  repository = "https://github.com/rafalkrol-xyz/pulumi-rafalkrol-xyz-draft" # TODO: change to https://github.com/rafalkrol-xyz/rafalkrol.xyz
+  repository = "https://github.com/rafalkrol-xyz/rafalkrol.xyz"
 
   build_spec = <<-EOT
-    version: 1
-    frontend:
+version: 1
+applications:
+  - frontend:
       phases:
         preBuild:
           commands:
-            - cd app
-            - npm ci
+            - npm ci --cache .npm --prefer-offline
         build:
           commands:
             - npm run build
       artifacts:
-        baseDirectory: /app/dist
+        baseDirectory: dist
         files:
           - '**/*'
       cache:
         paths:
-          - app/node_modules/**/*
+          - .npm/**/*
+    appRoot: app
   EOT
 
   custom_rule {
@@ -28,6 +35,12 @@ resource "aws_amplify_app" "main" {
     target = "https://www.rafalkrol.xyz"
   }
 
+  # FIXME: due to a known bug in the provider (https://github.com/hashicorp/terraform-provider-aws/issues/34318),
+  # custom_headers will show a diff on every plan/apply.
+  # Once the issue is fixed, remove the `// keep` comment and the `lifecycle` block.
+  lifecycle {
+    ignore_changes = [custom_headers]
+  }
   custom_headers = <<-EOT
     customHeaders:
       - pattern: '**/*'
@@ -47,6 +60,53 @@ resource "aws_amplify_app" "main" {
   EOT
 
   environment_variables = {
-    "_CUSTOM_IMAGE" = "amplify:al2"
+    "AMPLIFY_DIFF_DEPLOY"       = "false"
+    "AMPLIFY_MONOREPO_APP_ROOT" = "app"
   }
 }
+
+### PRODUCTION BRANCH & DOMAIN ASSOCIATION - START
+# The main branch association was created implicitly
+# when the Amplify app was created via the AWS Console.
+# import {
+#   to = aws_amplify_branch.main[0]
+#   id = "d3bb6k6j340kgg/main"
+# }
+resource "aws_amplify_branch" "main" {
+  count = var.env == "prod" ? 1 : 0
+
+  app_id      = aws_amplify_app.main.id
+  branch_name = "main"
+  # NB, Setting the `stage` to PRODUCTION is only responsible for displaying the branch's URL
+  # in the AWS Console under "Production branch URL", which makes the development easier.
+  stage     = "PRODUCTION"
+  framework = "Astro"
+
+  lifecycle {
+    prevent_destroy = true
+  }
+}
+
+resource "aws_amplify_domain_association" "rafalkrol_xyz" {
+  count = var.env == "prod" ? 1 : 0
+
+  app_id      = aws_amplify_app.main.id
+  domain_name = local.rafalkrol_xyz_phz
+
+  # https://rafalkrol.xyz
+  sub_domain {
+    branch_name = aws_amplify_branch.main[count.index].branch_name
+    prefix      = ""
+  }
+
+  # https://www.rafalkrol.xyz
+  sub_domain {
+    branch_name = aws_amplify_branch.main[count.index].branch_name
+    prefix      = "www"
+  }
+
+  lifecycle {
+    prevent_destroy = true
+  }
+}
+### PRODUCTION BRANCH & DOMAIN ASSOCIATION - END
