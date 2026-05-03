@@ -64,3 +64,24 @@ applications:
     "AMPLIFY_MONOREPO_APP_ROOT" = "app"
   }
 }
+### PRODUCTION BRANCH & DOMAIN ASSOCIATION - START
+# The main branch association was created implicitly
+# when the Amplify app was created via the AWS Console.
+# import {
+#   to = aws_amplify_branch.main[0]
+#   id = "d3bb6k6j340kgg/main"
+# }
+resource "aws_amplify_branch" "main" {
+  count = var.env == "prod" ? 1 : 0
+
+  app_id      = aws_amplify_app.main.id
+  branch_name = "main"
+  # NB, Setting the `stage` to PRODUCTION is only responsible for displaying the branch's URL
+  # in the AWS Console under "Production branch URL", which makes the development easier.
+  stage     = "PRODUCTION"
+  framework = "Astro"
+
+  lifecycle {
+    prevent_destroy = true
+  }
+}
