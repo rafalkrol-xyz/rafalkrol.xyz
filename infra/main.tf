@@ -4,7 +4,6 @@
 #   to =  aws_amplify_app.main
 #   id = "d3bb6k6j340kgg" # prod
 # }
-
 resource "aws_amplify_app" "main" {
   name       = local.name
   repository = "https://github.com/rafalkrol-xyz/rafalkrol.xyz"
